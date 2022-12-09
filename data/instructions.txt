@@ -1,0 +1,6 @@
+The code to generate synthetic data is located in /src/gen_synth_data.py. By default, this will generate and save 9600 signals' timeseries data and metadata as part of the benchmarking script. There are optional flags to change the dataset size and whether or not the synthetic data is saved.
+
+Running the code for the first time will most likely prompt a missing package for TimeSynth. To install the TimeSynth library used in the code in an activated conda environment, run the following:
+`pip install git+https://github.com/TimeSynth/TimeSynth.git`.
+
+The synthetic data is then passed to the pipeline that is the focus of this reference kit.
