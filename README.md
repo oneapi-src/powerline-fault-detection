@@ -186,7 +186,7 @@ python ./src/run_benchmarks.py -s -l ./logs/stock_log
 
 | **Expected Input**     | **Expected Output**                   | **Comment**              
 | :---                   | :---                                  | :---                
-| Trained model and test data input | Array of prediction classes of whether a signal is faulty or not based on presence of partial discharge (0 for negative target = not faulty, and 1 for positive target = faulty), ie. {sig_id: target} ie. {… 56:1, 57:1, 58:0…} | The array is used to calculate accuracy and f1_scores for the model. 
+| Trained model and test data input | Array of prediction classes of whether a signal is faulty or not based on presence of partial discharge (0 for negative target = not faulty, and 1 for positive target = faulty), ie. {sig_id: target} ie. {… 56:1, 57:1, 58:0…} | The array is used to calculate accuracy and macro f1 scores for the model. 
 
 #### **Streaming Prediction:**
 
@@ -277,7 +277,7 @@ In this section, we illustrate the benchmarking results comparing the Intel® te
   1. Training a Random Forest model with hyperparameter tuning built-in
   2. Predicting outcomes over batch data using the trained RFC model  
   3. Repeating the inference exercise but for streaming data (run with the default size of 9600 signals)
-  4. Due to the extreme skew in the distribution of data, we look at the F1 scores. As with accuracy, the higher the F1 score, the better the performance.
+  4. Due to the extreme skew in the distribution of data, we look at the macro F1 scores. As with accuracy, the higher the macro F1 score, the better the performance.
 
 
 ###**Machine Learning Results**
@@ -291,7 +291,7 @@ In this section, we illustrate the benchmarking results comparing the Intel® te
 ![inference-comparison](assets/inference-chart.png)
 
 ####**Model Accuracy**
-Looking at accuracy is important as well to determine a balance between performance speedup and at least matching accuracy compared to the stock version. Due to the skew in the dataset, we prioritize the F1 score as the model evaluation metric. Out of the dataset sizes benchmarked above, we saw that Intel® Extension for Scikit-Learn had an F1 score **23% lower** than the stock for n = 960 and starts to catch up and plateau at a score of about 0.80, with **-2% to +2%** difference between Intel® and stock for the remaining dataset sizes 3200, 9600 and 11200. This gives us an approximate lower bound for the dataset size to build an accurate enough model. Note that accuracy and speed are only two of many factors to consider when selecting the size of the batches, such as memory, processing power, etc.  
+Looking at accuracy is important as well to determine a balance between performance speedup and at least matching accuracy compared to the stock version. Due to the skew in the dataset, we prioritize the macro F1 score as the model evaluation metric. Out of the dataset sizes benchmarked above, we saw that Intel® Extension for Scikit-Learn had a macro F1 score that was **23% lower** than the stock for n = 960 and starts to catch up and plateau at a score of about 0.80, with **-2% to +2%** difference between Intel® and stock for the remaining dataset sizes 3200, 9600 and 11200. This gives us an approximate lower bound for the dataset size to build an accurate enough model. Note that accuracy and speed are only two of many factors to consider when selecting the size of the batches, such as memory, processing power, etc.  
 
 ### **Key Results**
 1. We see significant improvements in runtime performance for hyperparameter tuning/training pipeline with Intel® packages.
