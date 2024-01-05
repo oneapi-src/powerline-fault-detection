@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Intel Corporation
+# Copyright (C) 2023 Intel Corporation
 # SPDX-License-Identifier: BSD-3-Clause
 
 '''
@@ -6,16 +6,14 @@ This code has the functions needed for train-test-split, model training, and bat
 '''
 import time
 import pandas as pd
-import matplotlib.pyplot as plt  # pylint: disable=E0401
+from sklearn.model_selection import train_test_split, GridSearchCV  # pylint: disable=C0415
+from sklearn.ensemble import RandomForestClassifier  # pylint: disable=C0415
+from sklearn import metrics  # pylint: disable=C0415
+from sklearnex import patch_sklearn  # pylint: disable=E0401,C0415
+patch_sklearn()
 
-def train_model(data, intel_flag, streaming_flag):
-    if intel_flag:
-        from sklearnex import patch_sklearn  # pylint: disable=E0401,C0415
-        patch_sklearn()
-    from sklearn.model_selection import train_test_split, GridSearchCV  # pylint: disable=C0415
-    from sklearn.ensemble import RandomForestClassifier  # pylint: disable=C0415
-    from sklearn import metrics  # pylint: disable=C0415
 
+def train_model(data, streaming_flag):
     X = data[[
             'Signal_to_Noise_Ratio', 'Num_of_Positive_True_Peaks', 'Num_of_Negative_True_Peaks', 'Std_Dev_of_True_Peak_Positions',
             'Mean_of_Positive_True_Peak_Heights', 'Min_of_Positive_True_Peak_Heights', 'Max_of_Positive_True_Peak_Heights',
@@ -25,7 +23,7 @@ def train_model(data, intel_flag, streaming_flag):
 
     y = data['Target']
 
-    #Hyperparameters
+    # Hyperparameters
     params = {
         'n_estimators': [100, 500, 1000],
         'max_leaf_nodes': [None, 10, 20, 30],

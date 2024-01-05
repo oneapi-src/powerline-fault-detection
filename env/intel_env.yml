@@ -1,0 +1,12 @@
+name: fault_detection_intel
+channels:
+  - intel
+  - conda-forge
+dependencies:
+  - python=3.10
+  - intelpython3_full=2024.0.0
+  - matplotlib=3.8.0
+  - pandas=2.1.3
+  - pip=23.3.1
+  - pip:
+    - git+https://github.com/TimeSynth/TimeSynth.git@e50cdb9015d415adf46a4eae161a087c5c378564

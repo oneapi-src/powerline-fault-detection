@@ -1,12 +1,12 @@
-# Copyright (C) 2022 Intel Corporation
+# Copyright (C) 2023 Intel Corporation
 # SPDX-License-Identifier: BSD-3-Clause
 
 '''
 This code has the functions for generating synthetic data
 '''
 
-# run the following to install timesynth: pip install git+https://github.com/TimeSynth/TimeSynth.git
 import time
+import os
 import random
 import numpy as np
 import pandas as pd
@@ -97,7 +97,7 @@ def pos_target_impulse():
         p_max_impulses + n_max_impulses, end-start
 
 
-def generate_data(dataset_size, save_flag):
+def generate_data(dataset_size, data_dir):
     global np_time, regular_time_samples  # pylint: disable=W0601
     time_sampler = ts.TimeSampler(stop_time=0.02)
     regular_time_samples = time_sampler.sample_regular_time(num_points=10000)
@@ -143,7 +143,8 @@ def generate_data(dataset_size, save_flag):
 
     time_dict = {"SP": total_sp, "NP": np_time}
 
-    if save_flag == "True":
-        signal_df.to_csv(r'./data/signal_data.csv', index=False)
-        metadata_df.to_csv(r'./data/metadata.csv', index=False)
+    if data_dir is not None:
+        os.makedirs(data_dir, exist_ok=True)
+        signal_df.to_csv(os.path.join(data_dir, 'signal_data.csv'), index=False)
+        metadata_df.to_csv(os.path.join(data_dir, 'metadata.csv'), index=False)
     return signal_df, metadata_df, time_dict
