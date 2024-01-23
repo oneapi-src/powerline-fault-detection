@@ -144,7 +144,7 @@ export OUTPUT_DIR=$WORKSPACE/output
 
 ### Download the Workflow Repository
 Create a working directory for the workflow and clone the [Main
-Repository](https://github.com/oneapi-src/demand-forecasting) into your working
+Repository](https://github.com/oneapi-src/powerline-fault-detection) into your working
 directory.
 
 [//]: # (capture: baremetal)
